@@ -1,0 +1,33 @@
+name: Site checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: index.html exists
+        run: test -f index.html
+
+      - name: No secrets committed (.env)
+        run: |
+          if git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$'; then
+            echo "A .env file is tracked by git"; exit 1
+          fi
+
+      - name: Warn about placeholder contact details
+        run: |
+          grep -n "Your Name\|000 000" index.html && echo "::warning::Placeholder contact details are still in index.html" || true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate HTML (non-blocking)
+        continue-on-error: true
+        run: npx --yes html-validate index.html
