@@ -58,6 +58,15 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px
 .reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.blob{animation:none}.reveal{opacity:1;transform:none;transition:none}}
+/* FAQ */
+.faq{display:grid;gap:12px;max-width:760px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0 24px;backdrop-filter:blur(12px);transition:border-color .3s,background .3s}
+.faq details[open]{border-color:var(--a);background:rgba(124,92,255,.1)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:700;font-size:1.05rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));font-size:1.2rem;transition:transform .35s}
+.faq details[open] summary::after{transform:rotate(135deg)}
+.faq p{color:var(--muted);padding:0 0 20px}
 </style>
 </head>
 <body>
@@ -90,6 +99,17 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px
       <div class="step"><b>Late morning</b><h4>Team challenges</h4><p>Games and puzzles that reward creativity over job titles.</p></div>
       <div class="step"><b>Afternoon</b><h4>Lunch &amp; a stroll through Brno</h4><p>Local food, good conversation, no slides.</p></div>
       <div class="step"><b>Evening</b><h4>Dinner &amp; finale</h4><p>Winners announced, stories shared, memories made.</p></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Good to <em>know</em></h2>
+    <p class="sub">Quick answers before you ask.</p>
+    <div class="faq">
+      <details><summary>What should I wear?</summary><p>Comfortable clothes and shoes you can move in. Some activities are outdoors, so check the weather.</p></details>
+      <details><summary>Is food provided?</summary><p>Yes — lunch, dinner and snacks are on us. Tell us about any dietary needs when you RSVP.</p></details>
+      <details><summary>How do I get there?</summary><p>Travel details and the exact venue will be sent to everyone who confirms.</p></details>
+      <details><summary>Can I bring a plus-one?</summary><p>This one is for the Zebra team only, but ask the organiser if you have a special case.</p></details>
     </div>
   </section>
 
