@@ -57,10 +57,33 @@ h2 em{font-family:'Instrument Serif',serif;font-weight:400}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px}
 .reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.blob{animation:none}.reveal{opacity:1;transform:none;transition:none}}
+/* cursor spotlight */
+.spot{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(500px circle at var(--mx,50%) var(--my,30%),rgba(124,92,255,.16),transparent 60%)}
+.wrap{position:relative;z-index:1}
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);margin:0 -20px;padding:14px 0;transform:rotate(-1.5deg);background:rgba(255,255,255,.03);backdrop-filter:blur(6px)}
+.track{display:flex;gap:40px;width:max-content;animation:scroll 28s linear infinite;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.track span:nth-child(even){font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--b)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+/* countdown */
+.count{text-align:center}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin:0 auto}
+.unit{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 8px;backdrop-filter:blur(12px);position:relative;overflow:hidden}
+.unit::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12),transparent 70%);transform:translateX(-120%);animation:shine 4s ease-in-out infinite}
+.unit:nth-child(2)::after{animation-delay:.3s}.unit:nth-child(3)::after{animation-delay:.6s}.unit:nth-child(4)::after{animation-delay:.9s}
+@keyframes shine{50%,100%{transform:translateX(120%)}}
+.unit strong{display:block;font-size:clamp(2rem,7vw,3.8rem);line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,var(--muted));-webkit-background-clip:text;background-clip:text;color:transparent}
+.unit small{color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem}
+.today{display:none;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(2rem,6vw,3.6rem);background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* tilt */
+.card{transform-style:preserve-3d;will-change:transform}
+/* confetti */
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:5}
+@media (prefers-reduced-motion:reduce){.blob,.track,.unit::after{animation:none}.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
+<div class="spot"></div><canvas id="fx"></canvas>
 <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
 
 <div class="wrap">
@@ -75,6 +98,11 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px
     <p class="lead">One day away from the screens. Great people, good food, a little friendly competition — and a city that knows how to host.</p>
     <a class="btn" href="#contact">Count me in →</a>
   </header>
+
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>Rome</span><span>play together</span><span>Zebra</span><span>eat well</span><span>21.10.2026</span><span>laugh loudly</span>
+    <span>Rome</span><span>play together</span><span>Zebra</span><span>eat well</span><span>21.10.2026</span><span>laugh loudly</span>
+  </div></div>
 
   <div class="facts reveal">
     <div class="card"><div class="ico">📅</div><small>When</small><h3>21 October 2026</h3><p>Wednesday · start time to be confirmed</p></div>
@@ -93,6 +121,18 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px
     </div>
   </section>
 
+  <section class="count reveal">
+    <h2>The countdown <em>is on</em></h2>
+    <p class="sub">Until Rome, 21 October 2026 · 09:00</p>
+    <div class="clock" id="clock">
+      <div class="unit"><strong id="d">0</strong><small>days</small></div>
+      <div class="unit"><strong id="h">0</strong><small>hours</small></div>
+      <div class="unit"><strong id="m">0</strong><small>min</small></div>
+      <div class="unit"><strong id="s">0</strong><small>sec</small></div>
+    </div>
+    <div class="today" id="today">It's happening — see you in Rome!</div>
+  </section>
+
   <section id="contact" class="contact reveal">
     <h2>Questions? <em>Ask us.</em></h2>
     <p>Dietary needs, travel, plus-ones — we've got you covered.</p>
@@ -106,6 +146,54 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+// countdown (event starts 09:00 local time)
+const target=new Date('2026-10-21T09:00:00');
+const $=id=>document.getElementById(id);
+function tick(){
+  const t=target-Date.now();
+  if(t<=0){$('clock').style.display='none';$('today').style.display='block';return}
+  const p=n=>String(n).padStart(2,'0');
+  $('d').textContent=Math.floor(t/864e5);
+  $('h').textContent=p(Math.floor(t/36e5)%24);
+  $('m').textContent=p(Math.floor(t/6e4)%60);
+  $('s').textContent=p(Math.floor(t/1e3)%60);
+}
+tick();setInterval(tick,1000);
+
+if(!reduce){
+  // cursor spotlight
+  addEventListener('pointermove',e=>{
+    document.documentElement.style.setProperty('--mx',e.clientX+'px');
+    document.documentElement.style.setProperty('--my',e.clientY+'px');
+  });
+  // 3D tilt on cards
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('pointermove',e=>{
+      const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`perspective(700px) rotateY(${x*14}deg) rotateX(${-y*14}deg) translateY(-6px)`;
+    });
+    c.addEventListener('pointerleave',()=>c.style.transform='');
+  });
+  // confetti burst on CTA click
+  const cv=$('fx'),cx=cv.getContext('2d');let parts=[];
+  const fit=()=>{cv.width=innerWidth;cv.height=innerHeight};fit();addEventListener('resize',fit);
+  const cols=['#7c5cff','#ff5c9d','#ffb85c','#ffffff'];
+  function loop(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    parts=parts.filter(p=>p.life>0);
+    parts.forEach(p=>{p.vy+=.25;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.life--;
+      cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillStyle=p.c;cx.globalAlpha=Math.min(1,p.life/30);cx.fillRect(-4,-2,8,4);cx.restore()});
+    if(parts.length)requestAnimationFrame(loop);
+  }
+  document.querySelector('.btn').addEventListener('click',e=>{
+    for(let i=0;i<90;i++){const a=Math.random()*Math.PI*2,s=4+Math.random()*8;
+      parts.push({x:e.clientX,y:e.clientY,vx:Math.cos(a)*s,vy:Math.sin(a)*s-4,rot:0,vr:(Math.random()-.5)*.4,c:cols[i%4],life:70+Math.random()*50})}
+    if(parts.length===90)requestAnimationFrame(loop);
+  });
+}
 </script>
 </body>
 </html>
