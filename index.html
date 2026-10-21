@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zebra Teambuilding · Brno</title>
+<meta name="description" content="You're invited to the Zebra.com teambuilding in Brno — 21 October 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b14; --fg:#f4f2ff; --muted:#a29fbd; --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.12);
+  --a:#7c5cff; --b:#ff5c9d; --c:#ffb85c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:-1;animation:float 18s ease-in-out infinite alternate}
+.b1{width:480px;height:480px;background:var(--a);top:-120px;left:-120px}
+.b2{width:420px;height:420px;background:var(--b);bottom:-100px;right:-80px;animation-delay:-6s}
+.b3{width:300px;height:300px;background:var(--c);top:45%;left:55%;opacity:.25;animation-delay:-11s}
+@keyframes float{to{transform:translate(60px,40px) scale(1.15)}}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0}
+.logo{font-weight:700;letter-spacing:.04em;font-size:1.15rem}
+.logo span{color:var(--b)}
+nav a.pill{color:var(--fg);text-decoration:none;border:1px solid var(--line);padding:8px 18px;border-radius:99px;font-size:.9rem;transition:.25s}
+nav a.pill:hover{background:var(--fg);color:var(--bg)}
+.hero{padding:9vh 0 8vh;text-align:center}
+.tag{display:inline-block;border:1px solid var(--line);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.85rem;color:var(--muted);backdrop-filter:blur(8px)}
+h1{font-size:clamp(3rem,10vw,7.5rem);line-height:.95;font-weight:700;letter-spacing:-.04em;margin:28px 0 20px}
+h1 em{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.lead{max-width:560px;margin:0 auto 36px;color:var(--muted);font-size:1.15rem}
+.btn{display:inline-block;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;text-decoration:none;font-weight:700;padding:16px 36px;border-radius:99px;transition:.3s;box-shadow:0 10px 40px -10px var(--a)}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 50px -8px var(--b)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:6vh 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;backdrop-filter:blur(12px);transition:.3s}
+.card:hover{transform:translateY(-6px);border-color:var(--a)}
+.card small{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
+.card h3{font-size:1.7rem;margin:8px 0 4px;line-height:1.15}
+.card p{color:var(--muted);font-size:.95rem}
+.ico{font-size:1.8rem}
+section{padding:6vh 0}
+h2{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.03em;margin-bottom:10px}
+h2 em{font-family:'Instrument Serif',serif;font-weight:400}
+.sub{color:var(--muted);margin-bottom:32px}
+.timeline{border-left:2px solid var(--line);margin-left:8px}
+.step{position:relative;padding:0 0 28px 28px}
+.step::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;background:linear-gradient(var(--a),var(--b))}
+.step b{color:var(--c);font-variant-numeric:tabular-nums}
+.step h4{font-size:1.2rem}
+.step p{color:var(--muted)}
+.contact{text-align:center;background:linear-gradient(135deg,rgba(124,92,255,.25),rgba(255,92,157,.2));border:1px solid var(--line);border-radius:32px;padding:56px 24px;margin:6vh 0}
+.contact a.mail{display:inline-block;margin-top:14px;font-size:clamp(1.2rem,3.5vw,2rem);color:var(--fg);font-weight:700;text-decoration:none;border-bottom:2px solid var(--b)}
+.contact p{color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:30px 0 50px}
+.reveal{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">ZEBRA<span>.com</span></div>
+    <a class="pill" href="#contact">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <span class="tag">✦ Internal invitation · Zebra team only</span>
+    <h1>Team<br><em>building</em><br>in Brno</h1>
+    <p class="lead">One day away from the screens. Great people, good food, a little friendly competition — and a city that knows how to host.</p>
+    <a class="btn" href="#contact">Count me in →</a>
+  </header>
+
+  <div class="facts reveal">
+    <div class="card"><div class="ico">📅</div><small>When</small><h3>21 October 2026</h3><p>Wednesday · start time to be confirmed</p></div>
+    <div class="card"><div class="ico">📍</div><small>Where</small><h3>Brno, Czechia</h3><p>Exact venue shared after RSVP</p></div>
+    <div class="card"><div class="ico">👥</div><small>Who</small><h3>The whole Zebra crew</h3><p>Every team, every role</p></div>
+  </div>
+
+  <section class="reveal">
+    <h2>The <em>plan</em> for the day</h2>
+    <p class="sub">A draft programme — details may still shift.</p>
+    <div class="timeline">
+      <div class="step"><b>Morning</b><h4>Arrival &amp; welcome coffee</h4><p>Meet, mingle, and get split into mixed teams.</p></div>
+      <div class="step"><b>Late morning</b><h4>Team challenges</h4><p>Games and puzzles that reward creativity over job titles.</p></div>
+      <div class="step"><b>Afternoon</b><h4>Lunch &amp; a stroll through Brno</h4><p>Local food, good conversation, no slides.</p></div>
+      <div class="step"><b>Evening</b><h4>Dinner &amp; finale</h4><p>Winners announced, stories shared, memories made.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact reveal">
+    <h2>Questions? <em>Ask us.</em></h2>
+    <p>Dietary needs, travel, plus-ones — we've got you covered.</p>
+    <a class="mail" href="mailto:teambuilding@zebra.com">teambuilding@zebra.com</a>
+    <p style="margin-top:14px">Organiser: Your Name · +420 000 000 000</p>
+  </section>
+
+  <footer>© 2026 Zebra.com · See you in Brno 🧡</footer>
+</div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
